@@ -1,32 +1,32 @@
-import React from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import React from 'react';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import {
   appEduBasename,
   appJobBasename,
   appNetworkBasename,
   appPostingBasename,
-} from '../constants/prefix'
-import { Button, Icon } from '@mono/ui-kit'
-import { useAuth0 } from '@auth0/auth0-react'
+} from '../constants/prefix';
+import { Button, Icon } from '@mono/ui-kit';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Layout = () => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0()
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
         returnTo: '/',
       },
-    })
-  }
+    });
+  };
 
   const handleLogout = async () => {
     await logout({
       logoutParams: {
         returnTo: window.location.origin,
       },
-    })
-  }
+    });
+  };
 
   return (
     <div>
@@ -94,7 +94,7 @@ const Layout = () => {
       </header>
       <div className="global-container">{isAuthenticated && <Outlet />}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

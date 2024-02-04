@@ -1,21 +1,23 @@
-import React from 'react'
-import { type RouteObject } from 'react-router-dom'
-import { AppRoutingManager } from '@mono/shell-router'
+import React from 'react';
+import { type RouteObject } from 'react-router-dom';
+import { AppRoutingManager } from '@mono/shell-router';
+import Auth0ClientProvider from './providers/auth0-client-provider';
+import PageHome from './pages/page-home';
 
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <AppRoutingManager type="app-posting" />,
+    element: (
+      <Auth0ClientProvider>
+        <AppRoutingManager type="app-posting" />
+      </Auth0ClientProvider>
+    ),
     errorElement: <div>App Posting Error</div>,
     children: [
       {
         index: true,
-        element: <div>App Posting Root</div>,
-      },
-      {
-        path: '1',
-        element: <div>App Posting Page 1</div>,
+        element: <PageHome />,
       },
     ],
   },
-]
+];

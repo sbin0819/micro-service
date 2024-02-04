@@ -11,3 +11,4 @@
 - [x] Babel
 - [x] SWC
 - [x] React
+- [x] Auth0 (auth provider)

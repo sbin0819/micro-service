@@ -1,5 +1,3 @@
-// career-up/packages/ui-kit/src/components/Button.tsx
-
 import React from 'react'
 import styles from './Button.module.css'
 

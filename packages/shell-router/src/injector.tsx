@@ -1,5 +1,3 @@
-// career-up/packages/shell-router/src/injector.ts
-
 import { createRoot } from 'react-dom/client'
 import { RouteObject, RouterProvider } from 'react-router-dom'
 import { createRouter } from './router'
