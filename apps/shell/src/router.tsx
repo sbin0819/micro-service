@@ -1,10 +1,17 @@
-import React, { Suspense } from 'react'
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import Layout from './components/layout'
-import { appPostingBasename } from './constants/prefix'
-import { Auth0ProviderWithNavigator } from './components/auth0-provider-with-navigator'
+// career-up/apps/shell/src/router.tsx
 
-const AppPostingLazy = React.lazy(() => import('./components/app-posting'))
+import React, { Suspense } from 'react';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
+import Layout from './components/layout';
+import { appEduBasename, appPostingBasename } from './constants/prefix';
+import { Auth0ProviderWithNavigator } from './components/auth0-provider-with-navigator';
+
+const AppPostingLazy = React.lazy(() => import('./components/app-posting'));
+const AppEduLazy = React.lazy(() => import('./components/app-edu'));
 
 const browserRouter = createBrowserRouter([
   {
@@ -28,10 +35,18 @@ const browserRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: `${appEduBasename}/*`,
+        element: (
+          <Suspense fallback="Loading Posting...">
+            <AppEduLazy />
+          </Suspense>
+        ),
+      },
     ],
   },
-])
+]);
 
 export default function Router() {
-  return <RouterProvider router={browserRouter} />
+  return <RouterProvider router={browserRouter} />;
 }

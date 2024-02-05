@@ -1,3 +1,5 @@
+// career-up/apps/posting/webpack.config.js
+
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const Dotenv = require('dotenv-webpack');
@@ -41,7 +43,9 @@ module.exports = (_, argv) => ({
   },
 
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: '../../.env',
+    }),
     new ModuleFederationPlugin({
       name: 'posting',
       filename: 'remoteEntry.js',
@@ -63,9 +67,6 @@ module.exports = (_, argv) => ({
           singleton: true,
         },
         '@mono/ui-kit': {
-          singleton: true,
-        },
-        '@auth0/auth0-react': {
           singleton: true,
         },
       },

@@ -1,3 +1,5 @@
+// career-up/career-up.code-workspace
+
 {
   "folders": [
     {
@@ -7,6 +9,10 @@
     {
       "name": "posting",
       "path": "apps/posting"
+    },
+    {
+      "name": "edu",
+      "path": "apps/edu"
     },
     {
       "name": "shell-router",
