@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { myNetworkAtom } from '../atoms';
 import MyNetwork from '../components/my-network';
-import useAuth0Client from '../hooks/use-auth0-client';
+import { useAuth0Client } from '@mono/shell-router';
 import { getMyNetwork } from '../apis';
 
 const MyNetworkContainer: React.FC = () => {

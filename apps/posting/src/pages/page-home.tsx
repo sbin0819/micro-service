@@ -1,7 +1,7 @@
 import './page-home.scss';
 
 import React, { useEffect, useState } from 'react';
-import useAuth0Client from '../hooks/use-auth0-client';
+import { useAuth0Client } from '@mono/shell-router';
 import Profile from '../components/profile';
 import { type PostType } from '../types';
 import { createPost, getPosts, removePost } from '../apis';

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import ApplyStatus from '../components/apply-status';
 import { useDispatch, useSelector } from 'react-redux';
 import { done, fail, start } from '../redux/modules/applyStatus';
-import useAuth0Client from '../hooks/use-auth0-client';
+import { useAuth0Client } from '@mono/shell-router';
 import { getApplyStatus } from '../apis';
 import { AppDispatch, type RootState } from '../redux/create';
 
