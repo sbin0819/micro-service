@@ -1,5 +1,3 @@
-// career-up/apps/edu/src/components/layout.tsx
-
 import React, { useEffect } from 'react';
 import { LayoutWrapper } from './layout.styles';
 import { useSetAtom } from 'jotai';

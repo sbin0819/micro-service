@@ -1,5 +1,3 @@
-// career-up/apps/posting/src/pages/page-home.tsx
-
 import './page-home.scss';
 
 import React, { useEffect, useState } from 'react';

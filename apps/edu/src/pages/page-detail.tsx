@@ -1,5 +1,3 @@
-// career-up/apps/edu/src/pages/page-detail.tsx
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { selectAtom } from 'jotai/utils';

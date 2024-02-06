@@ -1,5 +1,3 @@
-// career-up/apps/edu/src/atoms.ts
-
 import { atom } from 'jotai';
 import { type CourseType, type UserType } from './types';
 
