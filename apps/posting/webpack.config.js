@@ -1,3 +1,5 @@
+// career-up/apps/posting/webpack.config.js
+
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const Dotenv = require('dotenv-webpack');
@@ -15,6 +17,13 @@ module.exports = (_, argv) => ({
   devServer: {
     port: 3001,
     historyApiFallback: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+        runtimeErrors: true,
+      },
+    },
   },
 
   module: {
@@ -47,11 +56,7 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: 'posting',
       filename: 'remoteEntry.js',
-      remotes: {
-        fragment_recommend_connections:
-          'fragment_recommend_connections@http://localhost:5001/remoteEntry.js',
-        job: 'job@http://localhost:3004/remoteEntry.js',
-      },
+      remotes: {},
       exposes: {
         './injector': './src/injector.tsx',
       },
@@ -70,6 +75,7 @@ module.exports = (_, argv) => ({
         },
         '@mono/ui-kit': {
           singleton: true,
+          shareScope: 'v2',
         },
       },
     }),

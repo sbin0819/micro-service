@@ -1,24 +1,36 @@
 import './page-home.scss';
 
 import React, { Suspense, useEffect, useState } from 'react';
-import { useAuth0Client } from '@mono/shell-router';
-import Profile from '../components/profile';
-import { type PostType } from '../types';
+import { PostType } from '../types';
 import { createPost, getPosts, removePost } from '../apis';
 import Post from '../components/post';
 import WritePost from '../components/write-post';
-
-const RecommendConnectionsContainer = React.lazy(
-  () => import('fragment_recommend_connections/container')
-);
-
-const RecommendJobsContainer = React.lazy(
-  () => import('job/fragment-recommend-jobs')
-);
+import { useAuth0Client } from '@mono/shell-router';
+import { ErrorBoundary } from 'react-error-boundary';
+import { importRemote } from '@module-federation/utilities';
+import ProfileContainer from '../containers/profile-container';
 
 const PageHome: React.FC = () => {
   const auth0Client = useAuth0Client();
   const [posts, setPosts] = useState<PostType[]>([]);
+
+  const RecommendConnectionsContainer = React.lazy(() =>
+    importRemote({
+      url: process.env.REACT_APP_FRAGMENT_RECOMMEND_CONNECTIONS!,
+      scope: 'fragment_recommend_connections',
+      module: 'container',
+      remoteEntryFileName: `remoteEntry.js?v=${Date.now()}`,
+    })
+  );
+
+  const RecommendJobsContainer = React.lazy(() =>
+    importRemote({
+      url: process.env.REACT_APP_MICROAPP_JOB!,
+      scope: 'job',
+      module: 'fragment-recommend-jobs',
+      remoteEntryFileName: `remoteEntry.js?v=${Date.now()}`,
+    })
+  );
 
   useEffect(() => {
     (async () => {
@@ -61,7 +73,7 @@ const PageHome: React.FC = () => {
   return (
     <div className="posting--page-home">
       <div className="posting--page-home-left">
-        <Profile />
+        <ProfileContainer />
       </div>
       <div className="posting--page-home-center">
         <WritePost writePost={writePost} />
@@ -70,12 +82,16 @@ const PageHome: React.FC = () => {
         ))}
       </div>
       <div className="posting--page-home-right">
-        <Suspense fallback={<div>Loading...</div>}>
-          <RecommendConnectionsContainer />
-        </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
-          <RecommendJobsContainer />
-        </Suspense>
+        <ErrorBoundary fallback={<div>Error</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <RecommendConnectionsContainer />
+          </Suspense>
+        </ErrorBoundary>
+        <ErrorBoundary fallback={<div>Error</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <RecommendJobsContainer />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </div>
   );

@@ -1,31 +1,42 @@
-import React, { useEffect, useRef } from 'react'
-import inject from 'posting/injector'
-import { useLocation } from 'react-router-dom'
-import { appPostingBasename } from '../constants/prefix'
-import { useShellEvent } from '@mono/shell-router'
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { appPostingBasename } from '../constants/prefix';
+import { type InjectFuncType, useShellEvent } from '@mono/shell-router';
+import { importRemote } from '@module-federation/utilities';
 
 export default function AppPosting() {
-  const wrapperRef = useRef<HTMLDivElement>(null)
-  const location = useLocation()
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
-  useShellEvent('app-posting', appPostingBasename)
+  useShellEvent('app-posting', appPostingBasename);
 
-  const isFirstRunRef = useRef(true)
-  const unmountRef = useRef(() => {})
+  const isFirstRunRef = useRef(true);
+  const unmountRef = useRef(() => {});
 
   useEffect(() => {
     if (!isFirstRunRef.current) {
-      return
+      return;
     }
-    unmountRef.current = inject({
-      routerType: 'memory',
-      rootElement: wrapperRef.current!,
-      basePath: location.pathname.replace(appPostingBasename, ''),
+    isFirstRunRef.current = false;
+    importRemote<{ default: InjectFuncType }>({
+      url: process.env.REACT_APP_MICROAPP_POSTING!,
+      scope: 'posting',
+      module: 'injector',
+      remoteEntryFileName: `remoteEntry.js`,
     })
-    isFirstRunRef.current = false
-  }, [location])
+      .then(({ default: inject }) => {
+        unmountRef.current = inject({
+          routerType: 'memory',
+          rootElement: wrapperRef.current!,
+          basePath: location.pathname.replace(appPostingBasename, ''),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [location]);
 
-  useEffect(() => unmountRef.current, [])
+  useEffect(() => unmountRef.current, []);
 
-  return <div ref={wrapperRef} id="app-posting" />
+  return <div ref={wrapperRef} id="app-posting" />;
 }

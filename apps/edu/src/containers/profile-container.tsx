@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai';
 import React from 'react';
 import { userAtom } from '../atoms';
-import Profile from '../components/profile';
+import { Profile } from '@mono/ui-kit';
 
 const ProfileContainer: React.FC = () => {
   const user = useAtomValue(userAtom);

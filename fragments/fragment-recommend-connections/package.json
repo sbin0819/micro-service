@@ -2,8 +2,8 @@
   "name": "@mono/fragment-recommend-connections",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
+    "build": "pnpm -w build:packages && webpack --mode production",
+    "build:dev": "pnpm -w build:packages && webpack --mode development",
     "build:start": "cd dist && PORT=5001 npx serve",
     "start": "webpack serve --open --mode development",
     "start:live": "webpack serve --open --mode development --live-reload --hot"
@@ -19,6 +19,7 @@
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.10.4",
+    "@types/node": "^20.11.16",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
