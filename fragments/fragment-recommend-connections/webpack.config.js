@@ -67,6 +67,9 @@ module.exports = (_, argv) => ({
         '@mono/ui-kit': {
           singleton: true,
         },
+        swr: {
+          version: deps['swr'],
+        },
       },
     }),
     new HtmlWebPackPlugin({
