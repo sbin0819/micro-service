@@ -1,5 +1,3 @@
-// career-up/career-up.code-workspace
-
 {
   "folders": [
     {
@@ -13,6 +11,18 @@
     {
       "name": "edu",
       "path": "apps/edu"
+    },
+    {
+      "name": "network",
+      "path": "apps/network"
+    },
+    {
+      "name": "job",
+      "path": "apps/job"
+    },
+    {
+      "name": "fragment-recommend-connections",
+      "path": "fragments/fragment-recommend-connections"
     },
     {
       "name": "shell-router",

@@ -1,12 +1,10 @@
-// career-up/apps/edu/src/pages/page-detail.tsx
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { selectAtom } from 'jotai/utils';
 import { coursesAtom } from '../atoms';
 import { useAtomValue } from 'jotai';
 import CourseDetailItem from '../components/course-detail-item';
-import useAuth0Client from '../hooks/use-auth0-client';
+import { useAuth0Client } from '@mono/shell-router';
 import { getCourseContents } from '../apis';
 import { type CourseContentsType } from '../types';
 import CourseContents from '../components/course-contents';

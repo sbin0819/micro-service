@@ -1,7 +1,7 @@
 import './profile.scss';
 
 import React, { useEffect, useState } from 'react';
-import useAuth0Client from '../hooks/use-auth0-client';
+import { useAuth0Client } from '@mono/shell-router';
 import { getUser } from '../apis';
 import { type UserType } from '../types';
 

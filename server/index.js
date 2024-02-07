@@ -1,11 +1,7 @@
-// career-up/server/index.js
-
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
-
-const AUTH0_DOMAIN = 'dev-d133vk8zpdg0nl38.us.auth0.com';
 
 server.use(middlewares);
 server.use(async (req, res, next) => {
@@ -27,6 +23,24 @@ server.get('/user', (req, res) => {
   });
 });
 
+server.get('/my-network', (req, res) => {
+  res.jsonp({
+    connectionCount: 811,
+    contactCount: 3724,
+    eventCount: 0,
+    pageCount: 0,
+    user: req.user,
+  });
+});
+
+server.get('/apply-status', (req, res) => {
+  res.jsonp({
+    myJobsCount: 13,
+    myOnlineClassesCount: 11,
+    mySavedUpdatesCount: 1,
+  });
+});
+
 server.use(jsonServer.bodyParser);
 server.post('/posts', (req, res, next) => {
   req.body.createdAt = new Date().toISOString();
@@ -35,6 +49,7 @@ server.post('/posts', (req, res, next) => {
     email: req.user.email,
     picture: req.user.picture,
   };
+  // Continue to JSON Server router
   next();
 });
 
@@ -47,11 +62,14 @@ async function isAuthorized(req) {
   try {
     const Authorization = req.headers.authorization;
 
-    const res = await fetch(`https://${AUTH0_DOMAIN}/userinfo`, {
-      headers: {
-        Authorization,
-      },
-    });
+    const res = await fetch(
+      'https://dev-d133vk8zpdg0nl38.us.auth0.com/userinfo',
+      {
+        headers: {
+          Authorization,
+        },
+      }
+    );
 
     const json = await res.json();
 
@@ -59,6 +77,7 @@ async function isAuthorized(req) {
 
     return true;
   } catch (e) {
+    console.log(e);
     return false;
   }
 }
