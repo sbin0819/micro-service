@@ -7,13 +7,16 @@ module.exports = (_, argv) => ({
   output: {
     publicPath: 'http://localhost:3004/',
   },
+
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
+
   devServer: {
     port: 3004,
     historyApiFallback: true,
   },
+
   module: {
     rules: [
       {
@@ -36,6 +39,7 @@ module.exports = (_, argv) => ({
       },
     ],
   },
+
   plugins: [
     new Dotenv({
       path: '../../.env',

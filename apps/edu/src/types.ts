@@ -11,6 +11,7 @@ export interface CourseType {
   thumbnail: string;
   title: string;
   description: string;
+  contents?: string;
 }
 
 export interface CourseContentsType {

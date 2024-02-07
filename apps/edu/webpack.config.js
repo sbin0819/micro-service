@@ -66,7 +66,6 @@ module.exports = (_, argv) => ({
         },
         '@mono/ui-kit': {
           singleton: true,
-          shareScope: 'v2',
         },
       },
     }),
